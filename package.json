@@ -1,0 +1,90 @@
+{
+  "name": "plugin-nilyo",
+  "description": "Give the agent access to the user's own LinkedIn, WhatsApp, Instagram, Telegram, Email and Calendar accounts through Nilyo.",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "packageType": "plugin",
+  "platform": "node",
+  "license": "MIT",
+  "author": "arnaudh458",
+  "keywords": [
+    "plugin",
+    "elizaos",
+    "nilyo",
+    "linkedin",
+    "whatsapp",
+    "instagram",
+    "telegram",
+    "email",
+    "mcp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnaudh458/plugin-nilyo.git"
+  },
+  "homepage": "https://nilyo.com/setup-for-agents",
+  "bugs": {
+    "url": "https://github.com/arnaudh458/plugin-nilyo/issues"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    ".npmignore",
+    ".gitignore",
+    "package.json"
+  ],
+  "dependencies": {
+    "@elizaos/core": "1.7.2",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@elizaos/cli": "1.7.2",
+    "dotenv": "^17.2.3",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "start": "elizaos start",
+    "dev": "elizaos dev",
+    "build": "bun run build.ts",
+    "lint": "prettier --write ./src",
+    "postinstall": "node -e \"const fs=require('fs');const path=require('path');const zodPath=path.join('node_modules','zod');if(fs.existsSync(zodPath)){fs.writeFileSync(path.join(zodPath,'v3.js'),'module.exports=require(\\\"./lib/index.js\\\");');fs.writeFileSync(path.join(zodPath,'v3.d.ts'),'export * from \\\"./lib/index\\\";');}\" || true",
+    "test": "bun test",
+    "test:e2e": "elizaos test e2e",
+    "format": "prettier --write ./src",
+    "format:check": "prettier --check ./src",
+    "build:watch": "bun run build.ts --watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "resolutions": {
+    "zod": "4.3.5"
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0",
+    "pluginParameters": {
+      "NILYO_API_TOKEN": {
+        "type": "string",
+        "description": "Personal Nilyo token (ab_…) from https://nilyo.com/account -> Agent access"
+      },
+      "NILYO_BASE_URL": {
+        "type": "string",
+        "description": "Nilyo base URL — leave as https://nilyo.com unless using a staging environment"
+      }
+    }
+  },
+  "npmPackage": "@arnaudh458/plugin-nilyo"
+}
