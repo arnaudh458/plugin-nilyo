@@ -1,0 +1,5 @@
+{
+  "client_id": "https://example.com/wrong-url-on-purpose",
+  "client_name": "Should be rejected: client_id mismatch",
+  "redirect_uris": ["https://example.com/callback"]
+}
