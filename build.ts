@@ -4,7 +4,7 @@
  */
 
 import { existsSync } from 'node:fs';
-import { rm } from 'node:fs/promises';
+import { rm, readdir, unlink } from 'node:fs/promises';
 import { $ } from 'bun';
 
 async function cleanBuild(outdir = 'dist') {
@@ -72,6 +72,14 @@ async function build() {
     if (!buildResult.success) {
       return false;
     }
+
+    // Drop build-cache artifacts (.tsbuildinfo, .d.ts.map) so they never ship in the tarball.
+    const distFiles = await readdir('dist', { recursive: true });
+    await Promise.all(
+      distFiles
+        .filter((file) => file.endsWith('.tsbuildinfo') || file.endsWith('.d.ts.map'))
+        .map((file) => unlink(`dist/${file}`))
+    );
 
     const elapsed = ((performance.now() - start) / 1000).toFixed(2);
     console.log(`✅ Build complete! (${elapsed}s)`);

@@ -5,14 +5,17 @@
     "": {
       "name": "plugin-nilyo",
       "dependencies": {
-        "@elizaos/core": "1.7.2",
         "zod": "^4.3.5",
       },
       "devDependencies": {
         "@elizaos/cli": "1.7.2",
+        "@elizaos/core": "1.7.2",
         "dotenv": "^17.2.3",
         "prettier": "^3.7.4",
         "typescript": "^5.9.3",
+      },
+      "peerDependencies": {
+        "@elizaos/core": "^1.7.2",
       },
     },
   },

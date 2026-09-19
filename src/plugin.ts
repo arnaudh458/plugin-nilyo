@@ -24,7 +24,7 @@ const configSchema = z.object({
 export const nilyoPlugin: Plugin = {
   name: 'plugin-nilyo',
   description:
-    "Give the agent access to the user's own LinkedIn, WhatsApp, Instagram, Telegram, Email and Calendar accounts through Nilyo.",
+    "Give the agent send/reply/invite access — plus account and billing management — on the user's own LinkedIn, WhatsApp, Instagram, Telegram, Email and Calendar accounts through Nilyo.",
   config: {
     NILYO_API_TOKEN: process.env.NILYO_API_TOKEN,
     NILYO_BASE_URL: process.env.NILYO_BASE_URL,

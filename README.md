@@ -1,6 +1,6 @@
 # plugin-nilyo
 
-Give an ElizaOS agent access to the user's own LinkedIn, WhatsApp, Instagram, Telegram, Email and Calendar accounts through [Nilyo](https://nilyo.com) — a remote MCP that bridges those accounts through [Unipile](https://www.unipile.com)'s connection layer. The agent never receives provider credentials; it calls structured Nilyo tools and gets back structured results.
+Give an ElizaOS agent send/reply/invite access — plus account and billing management — on the user's own LinkedIn, WhatsApp, Instagram, Telegram, Email and Calendar accounts through [Nilyo](https://nilyo.com) — a remote MCP that bridges those accounts through [Unipile](https://www.unipile.com)'s connection layer. The agent never receives provider credentials; it calls structured Nilyo tools and gets back structured results. The personal token configured below grants that full capability set, so treat it like a credential, not a read-only key.
 
 ## Prerequisites
 
