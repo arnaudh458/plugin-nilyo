@@ -1,6 +1,0 @@
-{
-  "client_id": "https://raw.githubusercontent.com/arnaudh458/plugin-nilyo/main/.well-known/cimd-test.json",
-  "client_name": "Nilyo CIMD End-to-End Test",
-  "redirect_uris": ["https://example.com/callback"],
-  "token_endpoint_auth_method": "none"
-}
