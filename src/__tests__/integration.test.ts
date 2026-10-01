@@ -78,7 +78,11 @@ describe('Integration: NILYO_CONNECTED_ACCOUNTS provider', () => {
         JSON.stringify({
           jsonrpc: '2.0',
           id: 1,
-          result: { structuredContent: { accounts: [{ provider: 'whatsapp', name: 'Personal' }] } },
+          result: {
+            structuredContent: {
+              accounts: [{ provider: 'whatsapp', name: 'Personal', account_id: 'wa-1' }],
+            },
+          },
         }),
         { status: 200 }
       )) as typeof fetch;
@@ -90,6 +94,8 @@ describe('Integration: NILYO_CONNECTED_ACCOUNTS provider', () => {
 
       const result = await provider!.get(runtime, createTestMemory(), createTestState());
       expect(result.text).toContain('whatsapp');
+      expect(result.text).toContain('account_id: wa-1');
+      expect((result.values as any).nilyoAccountsContext).toContain('account_id: wa-1');
       expect((result.values as any).nilyoAccounts).toHaveLength(1);
     } finally {
       globalThis.fetch = originalFetch;

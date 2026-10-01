@@ -22,14 +22,21 @@ export const connectedAccountsProvider: Provider = {
         Record<string, unknown>
       >;
       if (accounts.length === 0) {
-        return { text: 'No Nilyo accounts are connected yet.', values: { nilyoAccounts: [] }, data: { accounts } };
+        return {
+          text: 'No Nilyo accounts are connected yet.',
+          values: { nilyoAccounts: [], nilyoAccountsContext: 'No Nilyo accounts are connected.' },
+          data: { accounts },
+        };
       }
-      const lines = accounts.map(
-        (a) => `- ${String(a.provider ?? '?')}: ${String(a.name ?? a.display_name ?? a.unipile_account_id ?? '?')}`
-      );
+      const lines = accounts.map((account) => {
+        const id = account.account_id ?? account.unipile_account_id;
+        const label = account.name ?? account.display_name ?? account.identifier ?? id ?? '?';
+        return `- ${String(account.provider ?? '?')}: ${String(label)}${id ? ` (account_id: ${String(id)})` : ''}`;
+      });
+      const context = lines.join('\n');
       return {
-        text: `Connected Nilyo accounts:\n${lines.join('\n')}`,
-        values: { nilyoAccounts: accounts },
+        text: `Connected Nilyo accounts:\n${context}`,
+        values: { nilyoAccounts: accounts, nilyoAccountsContext: context },
         data: { accounts },
       };
     } catch (error) {

@@ -16,9 +16,14 @@ export const NilyoPluginTestSuite: TestSuite = {
           'NILYO_LINKEDIN_GET_PROFILE',
           'NILYO_LINKEDIN_SEARCH_PEOPLE',
           'NILYO_LINKEDIN_SEND_INVITATION',
+          'NILYO_LINKEDIN_LIST_CONVERSATIONS',
+          'NILYO_LINKEDIN_READ_CONVERSATION',
+          'NILYO_LINKEDIN_SEND_MESSAGE',
           'NILYO_MESSAGING_SEND_TO_CONTACT',
           'NILYO_MESSAGING_LIST_CHATS',
+          'NILYO_MESSAGING_READ_CHAT',
           'NILYO_EMAIL_LIST',
+          'NILYO_EMAIL_READ',
           'NILYO_EMAIL_SEND',
           'NILYO_CALENDAR_LIST_CALENDARS',
           'NILYO_CALL_TOOL',
@@ -51,9 +56,7 @@ export const NilyoPluginTestSuite: TestSuite = {
         // with no way to actually call the Nilyo MCP.
         const valid = await action.validate(runtime, {} as any, undefined);
         if (valid !== hasToken) {
-          throw new Error(
-            `Expected NILYO_LIST_ACCOUNTS.validate() (${valid}) to match whether NILYO_API_TOKEN is set (${hasToken})`
-          );
+          throw new Error(`Expected NILYO_LIST_ACCOUNTS.validate() (${valid}) to match whether NILYO_API_TOKEN is set (${hasToken})`);
         }
       },
     },

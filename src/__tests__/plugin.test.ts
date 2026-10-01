@@ -23,9 +23,14 @@ describe('nilyoPlugin shape', () => {
       'NILYO_LINKEDIN_GET_PROFILE',
       'NILYO_LINKEDIN_SEARCH_PEOPLE',
       'NILYO_LINKEDIN_SEND_INVITATION',
+      'NILYO_LINKEDIN_LIST_CONVERSATIONS',
+      'NILYO_LINKEDIN_READ_CONVERSATION',
+      'NILYO_LINKEDIN_SEND_MESSAGE',
       'NILYO_MESSAGING_SEND_TO_CONTACT',
       'NILYO_MESSAGING_LIST_CHATS',
+      'NILYO_MESSAGING_READ_CHAT',
       'NILYO_EMAIL_LIST',
+      'NILYO_EMAIL_READ',
       'NILYO_EMAIL_SEND',
       'NILYO_CALENDAR_LIST_CALENDARS',
       'NILYO_CALL_TOOL',
@@ -65,7 +70,11 @@ describe('NILYO_LIST_ACCOUNTS handler', () => {
         JSON.stringify({
           jsonrpc: '2.0',
           id: 1,
-          result: { structuredContent: { accounts: [{ provider: 'linkedin', name: 'Jane' }] } },
+          result: {
+            structuredContent: {
+              accounts: [{ provider: 'linkedin', name: 'Jane' }],
+            },
+          },
         }),
         { status: 200 }
       )) as typeof fetch;
@@ -93,9 +102,16 @@ describe('NILYO_LIST_ACCOUNTS handler', () => {
   it('reports a Nilyo MCP error through the callback instead of throwing', async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = (async () =>
-      new Response(JSON.stringify({ jsonrpc: '2.0', id: 1, error: { message: 'invalid token' } }), {
-        status: 200,
-      })) as typeof fetch;
+      new Response(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id: 1,
+          error: { message: 'invalid token' },
+        }),
+        {
+          status: 200,
+        }
+      )) as typeof fetch;
 
     try {
       const runtime = createMockRuntime();

@@ -1,10 +1,4 @@
-import {
-  composePromptFromState,
-  ModelType,
-  parseKeyValueXml,
-  type IAgentRuntime,
-  type State,
-} from '@elizaos/core';
+import { composePromptFromState, ModelType, parseKeyValueXml, type IAgentRuntime, type State } from '@elizaos/core';
 
 /**
  * Extracts structured parameters from the conversation with a small text model, following the same
@@ -21,6 +15,9 @@ export async function extractParams<T extends Record<string, unknown>>(
 # Recent Messages:
 {{recentMessages}}
 
+# Connected Nilyo Accounts:
+{{nilyoAccountsContext}}
+
 # Instructions:
 ${instructions}
 
@@ -29,6 +26,9 @@ response format without any preamble or explanation. Leave a field empty (\`<fie
 than guessing when the conversation does not say.`;
 
   const prompt = composePromptFromState({ state, template });
-  const raw = await runtime.useModel(ModelType.TEXT_SMALL, { prompt, stopSequences: [] });
+  const raw = await runtime.useModel(ModelType.TEXT_SMALL, {
+    prompt,
+    stopSequences: [],
+  });
   return parseKeyValueXml<T>(raw);
 }
