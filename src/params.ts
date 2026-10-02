@@ -4,7 +4,7 @@ import {
   parseKeyValueXml,
   type IAgentRuntime,
   type State,
-} from '@elizaos/core';
+} from "@elizaos/core";
 
 /**
  * Extracts structured parameters from the conversation with a small text model, following the same
@@ -14,12 +14,15 @@ import {
 export async function extractParams<T extends Record<string, unknown>>(
   runtime: IAgentRuntime,
   state: State,
-  instructions: string
+  instructions: string,
 ): Promise<T | null> {
   const template = `# Task: Extract parameters for a Nilyo agent action
 
 # Recent Messages:
 {{recentMessages}}
+
+# Connected Nilyo Accounts:
+{{nilyoAccountsContext}}
 
 # Instructions:
 ${instructions}
@@ -29,6 +32,9 @@ response format without any preamble or explanation. Leave a field empty (\`<fie
 than guessing when the conversation does not say.`;
 
   const prompt = composePromptFromState({ state, template });
-  const raw = await runtime.useModel(ModelType.TEXT_SMALL, { prompt, stopSequences: [] });
+  const raw = await runtime.useModel(ModelType.TEXT_SMALL, {
+    prompt,
+    stopSequences: [],
+  });
   return parseKeyValueXml<T>(raw);
 }

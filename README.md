@@ -26,29 +26,34 @@ Or add it to your character/agent config directly:
 }
 ```
 
-| Variable          | Required | Description                                                                 |
+| Variable          | Required | Description                                                                   |
 | ----------------- | -------- | ----------------------------------------------------------------------------- |
-| `NILYO_API_TOKEN`  | Yes      | Personal token from https://nilyo.com/account -> Agent access.               |
-| `NILYO_BASE_URL`   | No       | Defaults to `https://nilyo.com`. Only change for a Nilyo staging environment. |
+| `NILYO_API_TOKEN` | Yes      | Personal token from https://nilyo.com/account -> Agent access.                |
+| `NILYO_BASE_URL`  | No       | Defaults to `https://nilyo.com`. Only change for a Nilyo staging environment. |
 
 Every action `validate()`s against `NILYO_API_TOKEN` being set, so the agent simply won't offer Nilyo actions until it is configured.
 
 ## Actions
 
-| Action                          | What it does                                                                                     |
-| -------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `NILYO_LIST_ACCOUNTS`            | Lists connected accounts (provider, display name, status).                                        |
-| `NILYO_LINKEDIN_GET_PROFILE`     | Resolves a LinkedIn profile from a URL/identifier to the stable provider ID other actions need.    |
-| `NILYO_LINKEDIN_SEARCH_PEOPLE`   | Searches LinkedIn people by keywords.                                                              |
-| `NILYO_LINKEDIN_SEND_INVITATION` | Sends a LinkedIn connection invitation to an already-resolved provider ID.                         |
-| `NILYO_MESSAGING_SEND_TO_CONTACT`| Sends a WhatsApp/Instagram/Telegram message to a person by name or phone number.                   |
-| `NILYO_MESSAGING_LIST_CHATS`     | Lists recent chats, optionally filtered to unread.                                                 |
-| `NILYO_EMAIL_LIST`               | Lists recent emails from the connected Gmail/Outlook/IMAP mailbox.                                 |
-| `NILYO_EMAIL_SEND`               | Sends an email.                                                                                    |
-| `NILYO_CALENDAR_LIST_CALENDARS`  | Lists the connected calendars.                                                                     |
-| `NILYO_CALL_TOOL`                | Escape hatch: calls any Nilyo MCP tool by exact name for everything the actions above don't cover (invitations list, post comments/reactions, IMAP folders, webhook destinations, billing, etc). |
+| Action                              | What it does                                                                                                                                                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `NILYO_LIST_ACCOUNTS`               | Lists connected accounts (provider, display name, status).                                                                                                                                       |
+| `NILYO_LINKEDIN_GET_PROFILE`        | Resolves a LinkedIn profile from a URL/identifier to the stable provider ID other actions need.                                                                                                  |
+| `NILYO_LINKEDIN_SEARCH_PEOPLE`      | Searches LinkedIn people by keywords.                                                                                                                                                            |
+| `NILYO_LINKEDIN_SEND_INVITATION`    | Sends a LinkedIn connection invitation to an already-resolved provider ID.                                                                                                                       |
+| `NILYO_LINKEDIN_LIST_CONVERSATIONS` | Lists recent LinkedIn inbox conversations.                                                                                                                                                       |
+| `NILYO_LINKEDIN_READ_CONVERSATION`  | Reads a LinkedIn conversation by its resolved chat ID.                                                                                                                                           |
+| `NILYO_LINKEDIN_SEND_MESSAGE`       | Sends a reply in an existing LinkedIn conversation.                                                                                                                                              |
+| `NILYO_MESSAGING_SEND_TO_CONTACT`   | Sends a WhatsApp/Instagram/Telegram message to a person by name or phone number.                                                                                                                 |
+| `NILYO_MESSAGING_LIST_CHATS`        | Lists recent chats, optionally filtered to unread.                                                                                                                                               |
+| `NILYO_MESSAGING_READ_CHAT`         | Reads messages from a resolved WhatsApp/Instagram/Telegram chat.                                                                                                                                 |
+| `NILYO_EMAIL_LIST`                  | Lists recent emails from the connected Gmail/Outlook/IMAP mailbox.                                                                                                                               |
+| `NILYO_EMAIL_READ`                  | Reads an email by its resolved message ID.                                                                                                                                                       |
+| `NILYO_EMAIL_SEND`                  | Sends an email.                                                                                                                                                                                  |
+| `NILYO_CALENDAR_LIST_CALENDARS`     | Lists the connected calendars.                                                                                                                                                                   |
+| `NILYO_CALL_TOOL`                   | Escape hatch: calls any Nilyo MCP tool by exact name for everything the actions above don't cover (invitations list, post comments/reactions, IMAP folders, webhook destinations, billing, etc). |
 
-A `NILYO_CONNECTED_ACCOUNTS` provider also injects the connected accounts into context, so the agent knows what's available without an explicit action call, and can disambiguate when more than one account of the same provider is connected.
+A `NILYO_CONNECTED_ACCOUNTS` provider also injects the connected accounts into context, so the agent knows what's available without an explicit action call, and can pass the selected account ID when more than one account of the same provider is connected.
 
 ## Example prompts
 
