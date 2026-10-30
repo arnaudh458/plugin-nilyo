@@ -45,7 +45,7 @@
     "package.json"
   ],
   "dependencies": {
-    "zod": "^4.3.5"
+    "zod": "^4.6.7"
   },
   "peerDependencies": {
     "@elizaos/core": "^1.7.2"
@@ -72,7 +72,7 @@
     "access": "public"
   },
   "resolutions": {
-    "zod": "4.3.5"
+    "zod": "4.6.7"
   },
   "agentConfig": {
     "pluginType": "elizaos:plugin:1.0.0",
